@@ -1,0 +1,20 @@
+[package]
+name = "e2e-tests"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tempfile = "3.10"
+tokio = { version = "1.0", features = ["full"] }
+
+[[test]]
+name = "cli_e2e_tests"
+path = "cli_e2e_tests.rs"
+
+[[test]]
+name = "aevum_e2e_tests"
+path = "aevum_e2e_tests.rs"
+
+[[test]]
+name = "system_e2e_tests" 
+path = "system_e2e_tests.rs"

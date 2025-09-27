@@ -1,0 +1,22 @@
+[package]
+name = "cli-tools"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Command-line tools for Aevum & Bond nodes and mining"
+
+[dependencies]
+clap.workspace = true
+tokio.workspace = true
+bond-core = { path = "../bond-core" }
+serde_json.workspace = true
+anyhow.workspace = true
+hex.workspace = true
+chrono.workspace = true
+
+[[bin]]
+name = "bond-cli"
+path = "src/bond_cli.rs"

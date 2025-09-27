@@ -1,0 +1,12 @@
+[package]
+name = "aevum-core"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Aevum Protocol: Post-Quantum Proof-of-Dedication Transactional Layer"
+
+[dependencies]
+serde.workspace = true

@@ -1,0 +1,28 @@
+[package]
+name = "bond-core"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Bond Protocol: Post-Quantum Proof-of-Work Store of Value"
+
+[dependencies]
+# Workspace dependencies
+serde.workspace = true
+serde_json.workspace = true
+bincode.workspace = true
+sha3.workspace = true
+rand.workspace = true
+hex.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
+chrono.workspace = true
+
+# Bond-specific dependencies
+num-bigint = "0.4"
+num-traits = "0.2"
+
+[dev-dependencies]
+proptest.workspace = true

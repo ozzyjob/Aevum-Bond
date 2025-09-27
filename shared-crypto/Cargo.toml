@@ -1,0 +1,12 @@
+[package]
+name = "shared-crypto"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Shared Post-Quantum Cryptography for Aevum & Bond"
+
+[dependencies]
+serde.workspace = true

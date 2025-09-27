@@ -1,0 +1,132 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  test:
+    name: Test Suite
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Cache Cargo dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cargo/bin/
+          ~/.cargo/registry/index/
+          ~/.cargo/registry/cache/
+          ~/.cargo/git/db/
+          target/
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+        
+    - name: Install Rust toolchain
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: stable
+        override: true
+        components: rustfmt, clippy
+
+    - name: Check code formatting
+      run: cargo fmt --all -- --check
+
+    - name: Run Clippy linter
+      run: cargo clippy --all-targets --all-features -- -D warnings
+
+    - name: Build project
+      run: cargo build --verbose
+
+    - name: Run Layer 1 tests (Unit Tests)
+      run: cargo test --lib --verbose
+
+    - name: Run Layer 2 tests (Integration)
+      run: cargo test --test "*integration*" --verbose
+
+    - name: Run Layer 3 tests (End-to-End)
+      run: cargo test --test "*e2e*" --verbose
+
+    - name: Run Layer 4 tests (Network)
+      run: cargo test --test "*network*" --verbose
+
+    - name: Run Layer 5 tests (Security)
+      run: cargo test --test "*security*" --verbose
+
+    - name: Run all tests
+      run: cargo test --all --verbose
+
+  security:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Install Rust toolchain
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+
+    - name: Install cargo-audit
+      run: cargo install cargo-audit
+
+    - name: Run security audit
+      run: cargo audit
+
+  coverage:
+    name: Code Coverage
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Install Rust toolchain
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+        components: llvm-tools-preview
+
+    - name: Install cargo-llvm-cov
+      run: cargo install cargo-llvm-cov
+
+    - name: Generate code coverage
+      run: cargo llvm-cov --all-features --workspace --lcov --output-path lcov.info
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        files: lcov.info
+        fail_ci_if_error: true
+
+  performance:
+    name: Performance Benchmarks
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Install Rust toolchain
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+
+    - name: Run mining benchmarks
+      run: cargo test mining_performance -- --ignored --nocapture
+
+    - name: Run transaction benchmarks
+      run: cargo test transaction_performance -- --ignored --nocapture
