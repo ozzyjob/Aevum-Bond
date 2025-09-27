@@ -1,0 +1,31 @@
+# GitHub Copilot Workspace Configuration
+* @ozzyjob
+
+# Core Protocol Files
+bond-core/src/ @ozzyjob
+aevum-core/src/ @ozzyjob
+shared-crypto/src/ @ozzyjob
+
+# CLI Tools
+cli-tools/src/ @ozzyjob
+
+# Configuration Files
+Cargo.toml @ozzyjob
+.github/ @ozzyjob
+
+# Documentation
+docs/ @ozzyjob
+*.md @ozzyjob
+
+# Security Critical Files
+LICENSE @ozzyjob
+.github/workflows/ @ozzyjob
+.github/ISSUE_TEMPLATE/ @ozzyjob
+
+# Testing Files
+tests/ @ozzyjob
+*/tests/ @ozzyjob
+
+# Agent Configuration
+GITHUB_AGENTS_CONFIG.md @ozzyjob
+BRANCH_PROTECTION_GUIDE.md @ozzyjob
