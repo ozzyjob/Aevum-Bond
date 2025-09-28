@@ -1,7 +1,7 @@
 pub use crate::mining::{Consensus, MiningConfig};
-use crate::{Block, Transaction, BondError, BondResult};
+use crate::{Block, BondError, BondResult, Transaction};
+use crate::{TransactionOutput, UtxoId};
 use std::collections::HashMap;
-use crate::{UtxoId, TransactionOutput};
 
 /// Blockchain state and consensus validation
 pub struct ChainState {
@@ -14,6 +14,7 @@ pub struct ChainState {
     /// Current blockchain height
     height: u32,
     /// Total work (simplified proof-of-work accumulation)
+    #[allow(dead_code)]
     total_work: u64,
 }
 
@@ -182,13 +183,13 @@ impl ChainState {
 
     /// Calculate chain statistics
     pub fn stats(&self) -> ChainStats {
-        let total_transactions = self.blocks.iter()
+        let total_transactions = self
+            .blocks
+            .iter()
             .map(|b| b.transactions.len() as u64)
             .sum();
 
-        let total_supply = self.utxo_set.values()
-            .map(|utxo| utxo.value)
-            .sum();
+        let total_supply = self.utxo_set.values().map(|utxo| utxo.value).sum();
 
         let average_block_time = self.calculate_average_block_time();
 
@@ -204,7 +205,7 @@ impl ChainState {
     /// Calculate average block time over the last N blocks
     fn calculate_average_block_time(&self) -> f64 {
         const SAMPLE_SIZE: usize = 100;
-        
+
         if self.blocks.len() < 2 {
             return 0.0;
         }
@@ -222,7 +223,7 @@ impl ChainState {
 
         let first_time = sample_blocks[0].header.timestamp;
         let last_time = sample_blocks[sample_blocks.len() - 1].header.timestamp;
-        
+
         let total_time = (last_time - first_time).num_seconds() as f64;
         let block_count = (sample_blocks.len() - 1) as f64;
 
@@ -246,7 +247,7 @@ impl ChainState {
     pub fn get_blocks_range(&self, start: u32, end: u32) -> Vec<&Block> {
         let start_idx = start.min(self.blocks.len() as u32) as usize;
         let end_idx = end.min(self.blocks.len() as u32) as usize;
-        
+
         self.blocks[start_idx..end_idx].iter().collect()
     }
 
@@ -280,7 +281,7 @@ impl ChainState {
 
 /// Create a genesis block for the Bond blockchain
 pub fn create_genesis_block() -> BondResult<Block> {
-    use crate::{BlockHeader, BlockHash, MerkleRoot, DifficultyTarget};
+    use crate::{BlockHash, BlockHeader, DifficultyTarget, MerkleRoot};
     use chrono::{TimeZone, Utc};
 
     // Genesis block parameters
@@ -315,12 +316,12 @@ pub fn create_genesis_block() -> BondResult<Block> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{Transaction, TransactionInput, TransactionOutput, Script, UtxoId};
+    use crate::{Script, Transaction, TransactionInput, TransactionOutput, UtxoId};
 
     #[test]
     fn test_genesis_block_creation() {
         let genesis = create_genesis_block().unwrap();
-        
+
         assert_eq!(genesis.transactions.len(), 1);
         assert!(genesis.transactions[0].is_coinbase());
         assert_eq!(genesis.transactions[0].outputs[0].value, 5_000_000_000);
@@ -330,7 +331,7 @@ mod tests {
     fn test_chain_state_creation() {
         let genesis = create_genesis_block().unwrap();
         let chain_state = ChainState::new_with_genesis(genesis).unwrap();
-        
+
         assert_eq!(chain_state.height(), 1);
         assert!(chain_state.latest_block().is_some());
         assert_eq!(chain_state.utxo_set().len(), 1);
@@ -340,16 +341,18 @@ mod tests {
     fn test_transaction_validation() {
         let genesis = create_genesis_block().unwrap();
         let chain_state = ChainState::new_with_genesis(genesis).unwrap();
-        
+
         // Get the genesis UTXO
-        let genesis_tx_hash = chain_state.latest_block().unwrap().transactions[0].hash().unwrap();
+        let genesis_tx_hash = chain_state.latest_block().unwrap().transactions[0]
+            .hash()
+            .unwrap();
         let genesis_utxo_id = UtxoId::new(genesis_tx_hash, 0);
-        
+
         // Create a valid transaction spending the genesis UTXO
         let input = TransactionInput::new(genesis_utxo_id, Script::empty(), 0);
         let output = TransactionOutput::new(1_000_000_000, Script::empty()); // 1 BND
         let tx = Transaction::new(1, vec![input], vec![output], 0);
-        
+
         // This should validate successfully
         let result = chain_state.validate_transaction(&tx, false);
         assert!(result.is_ok());
@@ -359,20 +362,25 @@ mod tests {
     fn test_utxo_management() {
         let genesis = create_genesis_block().unwrap();
         let chain_state = ChainState::new_with_genesis(genesis).unwrap();
-        
+
         // Check genesis UTXO exists
-        let genesis_tx_hash = chain_state.latest_block().unwrap().transactions[0].hash().unwrap();
+        let genesis_tx_hash = chain_state.latest_block().unwrap().transactions[0]
+            .hash()
+            .unwrap();
         let genesis_utxo_id = UtxoId::new(genesis_tx_hash, 0);
-        
+
         assert!(chain_state.has_utxo(&genesis_utxo_id));
-        assert_eq!(chain_state.get_utxo(&genesis_utxo_id).unwrap().value, 5_000_000_000);
+        assert_eq!(
+            chain_state.get_utxo(&genesis_utxo_id).unwrap().value,
+            5_000_000_000
+        );
     }
 
     #[test]
     fn test_chain_stats() {
         let genesis = create_genesis_block().unwrap();
         let chain_state = ChainState::new_with_genesis(genesis).unwrap();
-        
+
         let stats = chain_state.stats();
         assert_eq!(stats.height, 1);
         assert_eq!(stats.total_transactions, 1);
@@ -384,25 +392,27 @@ mod tests {
     fn test_double_spending_prevention() {
         let genesis = create_genesis_block().unwrap();
         let mut chain_state = ChainState::new_with_genesis(genesis).unwrap();
-        
-        let genesis_tx_hash = chain_state.latest_block().unwrap().transactions[0].hash().unwrap();
+
+        let genesis_tx_hash = chain_state.latest_block().unwrap().transactions[0]
+            .hash()
+            .unwrap();
         let genesis_utxo_id = UtxoId::new(genesis_tx_hash, 0);
-        
+
         // Create a transaction spending the genesis UTXO
         let input = TransactionInput::new(genesis_utxo_id, Script::empty(), 0);
         let output = TransactionOutput::new(1_000_000_000, Script::empty());
         let tx1 = Transaction::new(1, vec![input.clone()], vec![output.clone()], 0);
-        
+
         // Apply the first transaction
         chain_state.apply_transaction(&tx1).unwrap();
-        
+
         // Try to create another transaction spending the same UTXO
         let tx2 = Transaction::new(1, vec![input], vec![output], 0);
-        
+
         // This should fail with double spending error
         let result = chain_state.apply_transaction(&tx2);
         assert!(result.is_err());
-        
+
         if let Err(BondError::DoubleSpending { .. }) = result {
             // Expected error
         } else {

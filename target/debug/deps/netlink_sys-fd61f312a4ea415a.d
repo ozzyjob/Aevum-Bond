@@ -1,0 +1,11 @@
+/home/aevum/Dev-Muito/Aevum&Bold/target/debug/deps/netlink_sys-fd61f312a4ea415a.d: /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-sys-0.8.7/src/lib.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-sys-0.8.7/src/constants.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-sys-0.8.7/src/socket.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-sys-0.8.7/src/addr.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-sys-0.8.7/src/async_socket.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-sys-0.8.7/src/async_socket_ext.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-sys-0.8.7/src/tokio.rs
+
+/home/aevum/Dev-Muito/Aevum&Bold/target/debug/deps/libnetlink_sys-fd61f312a4ea415a.rmeta: /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-sys-0.8.7/src/lib.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-sys-0.8.7/src/constants.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-sys-0.8.7/src/socket.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-sys-0.8.7/src/addr.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-sys-0.8.7/src/async_socket.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-sys-0.8.7/src/async_socket_ext.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-sys-0.8.7/src/tokio.rs
+
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-sys-0.8.7/src/lib.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-sys-0.8.7/src/constants.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-sys-0.8.7/src/socket.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-sys-0.8.7/src/addr.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-sys-0.8.7/src/async_socket.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-sys-0.8.7/src/async_socket_ext.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-sys-0.8.7/src/tokio.rs:

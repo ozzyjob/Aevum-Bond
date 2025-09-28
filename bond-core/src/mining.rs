@@ -1,4 +1,4 @@
-use crate::{Block, BlockHeader, BlockHash, DifficultyTarget, BondError, BondResult};
+use crate::{Block, BlockHash, BlockHeader, BondError, BondResult, DifficultyTarget};
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
 
@@ -29,6 +29,7 @@ pub struct MiningStats {
 /// Proof-of-Work miner for Bond protocol
 pub struct Miner {
     /// Mining configuration
+    #[allow(dead_code)]
     config: MiningConfig,
     /// Whether mining should stop
     should_stop: Arc<AtomicBool>,
@@ -39,11 +40,17 @@ pub struct Miner {
 impl Default for MiningConfig {
     fn default() -> Self {
         Self {
-            target_block_time: 600,              // 10 minutes
-            difficulty_adjustment_period: 2016,   // ~2 weeks
-            max_difficulty_adjustment: 4.0,       // 4x harder max
-            min_difficulty_adjustment: 0.25,      // 4x easier max
+            target_block_time: 600,             // 10 minutes
+            difficulty_adjustment_period: 2016, // ~2 weeks
+            max_difficulty_adjustment: 4.0,     // 4x harder max
+            min_difficulty_adjustment: 0.25,    // 4x easier max
         }
+    }
+}
+
+impl Default for Miner {
+    fn default() -> Self {
+        Self::new()
     }
 }
 
@@ -81,7 +88,7 @@ impl Miner {
         };
 
         let mut nonce = 0u64;
-        
+
         loop {
             // Check if we should stop
             if self.should_stop.load(Ordering::Relaxed) {
@@ -94,7 +101,7 @@ impl Miner {
             // Set the nonce and calculate hash
             header.nonce = nonce;
             let hash = header.hash()?;
-            
+
             self.stats.hashes_attempted += 1;
 
             // Update hash rate every 1000 hashes
@@ -112,7 +119,7 @@ impl Miner {
 
             // Increment nonce, wrapping around if necessary
             nonce = nonce.wrapping_add(1);
-            
+
             // If we've wrapped around completely, this target might be impossible
             if nonce == 0 {
                 return Err(BondError::InvalidProofOfWork {
@@ -164,18 +171,22 @@ impl Consensus {
         }
 
         // Get the last adjustment period worth of blocks
-        let adjustment_blocks = &blocks[blocks.len() - self.config.difficulty_adjustment_period as usize..];
-        
+        let adjustment_blocks =
+            &blocks[blocks.len() - self.config.difficulty_adjustment_period as usize..];
+
         // Calculate actual time taken
         let first_timestamp = adjustment_blocks[0].header.timestamp;
-        let last_timestamp = adjustment_blocks[adjustment_blocks.len() - 1].header.timestamp;
-        
+        let last_timestamp = adjustment_blocks[adjustment_blocks.len() - 1]
+            .header
+            .timestamp;
+
         let actual_time = (last_timestamp - first_timestamp).num_seconds() as u64;
-        let target_time = self.config.target_block_time * self.config.difficulty_adjustment_period as u64;
+        let target_time =
+            self.config.target_block_time * self.config.difficulty_adjustment_period as u64;
 
         // Calculate adjustment factor
         let adjustment_factor = actual_time as f64 / target_time as f64;
-        
+
         // Clamp the adjustment factor
         let clamped_factor = adjustment_factor
             .max(self.config.min_difficulty_adjustment)
@@ -185,22 +196,26 @@ impl Consensus {
         // Higher target = easier mining, so we multiply by adjustment factor
         // If blocks were found too quickly (actual_time < target_time), factor < 1, target decreases (harder)
         // If blocks were found too slowly (actual_time > target_time), factor > 1, target increases (easier)
-        
+
         let new_target = self.adjust_target(current_target, clamped_factor)?;
         Ok(new_target)
     }
 
     /// Adjust difficulty target by a factor
-    fn adjust_target(&self, current: DifficultyTarget, factor: f64) -> BondResult<DifficultyTarget> {
+    fn adjust_target(
+        &self,
+        current: DifficultyTarget,
+        factor: f64,
+    ) -> BondResult<DifficultyTarget> {
         // Convert target to a big integer for arithmetic
         let _target_bytes = current.0;
-        
+
         // Simple approximation: adjust the most significant bytes
         // This is a simplified version; a production implementation would use proper big integer arithmetic
         let current_difficulty = self.target_to_difficulty_approx(&current);
         let new_difficulty = current_difficulty / factor;
         let new_target = self.difficulty_to_target_approx(new_difficulty);
-        
+
         Ok(new_target)
     }
 
@@ -210,7 +225,7 @@ impl Consensus {
         let mut bytes = [0u8; 8];
         bytes.copy_from_slice(&target.0[..8]);
         let value = u64::from_be_bytes(bytes);
-        
+
         if value == 0 {
             f64::MAX
         } else {
@@ -223,17 +238,17 @@ impl Consensus {
         if difficulty <= 0.0 {
             return DifficultyTarget::MAX;
         }
-        
+
         let target_value = ((u64::MAX as f64) / difficulty) as u64;
         let target_bytes = target_value.to_be_bytes();
-        
+
         let mut result = [0u8; 32];
         result[..8].copy_from_slice(&target_bytes);
         // Fill the rest with 0xFF to make it easier
-        for i in 8..32 {
-            result[i] = 0xFF;
+        for item in result.iter_mut().skip(8) {
+            *item = 0xFF;
         }
-        
+
         DifficultyTarget(result)
     }
 
@@ -246,17 +261,19 @@ impl Consensus {
         const MAX_BLOCK_SIZE: usize = 4 * 1024 * 1024; // 4 MB
         if block.size()? > MAX_BLOCK_SIZE {
             return Err(BondError::InvalidTransaction {
-                reason: format!("Block size {} exceeds maximum {}", block.size()?, MAX_BLOCK_SIZE),
+                reason: format!(
+                    "Block size {} exceeds maximum {}",
+                    block.size()?,
+                    MAX_BLOCK_SIZE
+                ),
             });
         }
 
         // Validate difficulty target if we have enough blocks
         if previous_blocks.len() >= self.config.difficulty_adjustment_period as usize {
-            let expected_target = self.calculate_next_difficulty(
-                previous_blocks,
-                block.header.difficulty_target,
-            )?;
-            
+            let expected_target =
+                self.calculate_next_difficulty(previous_blocks, block.header.difficulty_target)?;
+
             // Allow some tolerance for difficulty adjustments
             // In a real implementation, this would be more precise
             if block.header.difficulty_target != expected_target {
@@ -320,7 +337,7 @@ pub fn create_mining_header(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{Transaction, MerkleRoot};
+    use crate::{MerkleRoot, Transaction};
     use chrono::Utc;
 
     #[test]
@@ -332,20 +349,15 @@ mod tests {
     #[test]
     fn test_mining_easy_target() {
         let mut miner = Miner::new();
-        
+
         // Create a very easy target (all 0xFF)
         let easy_target = DifficultyTarget::MAX;
-        
-        let header = create_mining_header(
-            1,
-            BlockHash::ZERO,
-            MerkleRoot::ZERO,
-            easy_target,
-        );
+
+        let header = create_mining_header(1, BlockHash::ZERO, MerkleRoot::ZERO, easy_target);
 
         let result = miner.mine_block(header);
         assert!(result.is_ok());
-        
+
         let mined_header = result.unwrap();
         assert!(mined_header.validates_pow().unwrap());
     }
@@ -353,7 +365,7 @@ mod tests {
     #[test]
     fn test_consensus_validation() {
         let consensus = Consensus::new();
-        
+
         // Create a simple valid block
         let transactions = vec![Transaction::coinbase(5_000_000_000, vec![])];
         let block = Block::new(
@@ -378,7 +390,7 @@ mod tests {
     fn test_difficulty_calculation() {
         let consensus = Consensus::new();
         let current_target = DifficultyTarget::MAX;
-        
+
         // Test with empty block history (should return current target)
         let result = consensus.calculate_next_difficulty(&[], current_target);
         assert!(result.is_ok());
@@ -389,7 +401,7 @@ mod tests {
     fn test_mining_stop() {
         let mut miner = Miner::new();
         let stop_handle = miner.stop_handle();
-        
+
         let header = create_mining_header(
             1,
             BlockHash::ZERO,
@@ -398,20 +410,18 @@ mod tests {
         );
 
         // Start mining in a separate thread
-        let miner_handle = std::thread::spawn(move || {
-            miner.mine_block(header)
-        });
-        
+        let miner_handle = std::thread::spawn(move || miner.mine_block(header));
+
         // Give mining a moment to start
         std::thread::sleep(std::time::Duration::from_millis(10));
-        
+
         // Stop mining
         stop_handle.store(true, Ordering::Relaxed);
-        
+
         // Wait for mining to complete and check it was stopped
         let result = miner_handle.join().unwrap();
         assert!(result.is_err());
-        
+
         // Verify it's the correct error type
         if let Err(BondError::InvalidProofOfWork { hash, .. }) = result {
             assert_eq!(hash, "Mining stopped");

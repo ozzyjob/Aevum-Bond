@@ -1,0 +1,10 @@
+/home/aevum/Dev-Muito/Aevum&Bold/target/debug/deps/multistream_select-40af0b36da19f208.d: /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/multistream-select-0.13.0/src/lib.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/multistream-select-0.13.0/src/dialer_select.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/multistream-select-0.13.0/src/length_delimited.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/multistream-select-0.13.0/src/listener_select.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/multistream-select-0.13.0/src/negotiated.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/multistream-select-0.13.0/src/protocol.rs
+
+/home/aevum/Dev-Muito/Aevum&Bold/target/debug/deps/libmultistream_select-40af0b36da19f208.rmeta: /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/multistream-select-0.13.0/src/lib.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/multistream-select-0.13.0/src/dialer_select.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/multistream-select-0.13.0/src/length_delimited.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/multistream-select-0.13.0/src/listener_select.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/multistream-select-0.13.0/src/negotiated.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/multistream-select-0.13.0/src/protocol.rs
+
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/multistream-select-0.13.0/src/lib.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/multistream-select-0.13.0/src/dialer_select.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/multistream-select-0.13.0/src/length_delimited.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/multistream-select-0.13.0/src/listener_select.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/multistream-select-0.13.0/src/negotiated.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/multistream-select-0.13.0/src/protocol.rs:

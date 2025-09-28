@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use crate::{BondError, BondResult, TransactionHash};
+use serde::{Deserialize, Serialize};
 
 /// Unique identifier for a UTXO (Unspent Transaction Output)
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
@@ -131,12 +131,7 @@ impl UtxoId {
 
 impl ProgrammableUtxo {
     /// Create a new programmable UTXO
-    pub fn new(
-        id: UtxoId,
-        value: u64,
-        script_pubkey: Script,
-        block_height: u32,
-    ) -> Self {
+    pub fn new(id: UtxoId, value: u64, script_pubkey: Script, block_height: u32) -> Self {
         Self {
             id,
             value,
@@ -181,7 +176,8 @@ impl ProgrammableUtxo {
             TimeLockType::BlockHeight => Ok(current_block_height >= time_lock.value as u32),
             TimeLockType::Timestamp => Ok(current_timestamp >= time_lock.value),
             TimeLockType::RelativeBlocks => {
-                let target_height = self.block_height
+                let target_height = self
+                    .block_height
                     .checked_add(time_lock.value as u32)
                     .ok_or_else(|| BondError::ArithmeticOverflow {
                         operation: "relative block height calculation".to_string(),
@@ -198,7 +194,8 @@ impl ProgrammableUtxo {
 
     /// Check if rate limit allows spending
     fn check_rate_limit(&self, rate_limit: &RateLimit, current_timestamp: u64) -> BondResult<bool> {
-        let window_end = rate_limit.current_window_start
+        let window_end = rate_limit
+            .current_window_start
             .checked_add(rate_limit.window_seconds)
             .ok_or_else(|| BondError::ArithmeticOverflow {
                 operation: "rate limit window calculation".to_string(),
@@ -312,7 +309,7 @@ mod tests {
     fn test_utxo_id_creation() {
         let tx_hash = TransactionHash::ZERO;
         let utxo_id = UtxoId::new(tx_hash, 0);
-        
+
         assert_eq!(utxo_id.tx_hash, tx_hash);
         assert_eq!(utxo_id.output_index, 0);
     }
@@ -322,7 +319,7 @@ mod tests {
         let utxo_id = UtxoId::new(TransactionHash::ZERO, 0);
         let script = Script::empty();
         let utxo = ProgrammableUtxo::simple(utxo_id, 1000, script, 100);
-        
+
         assert_eq!(utxo.id, utxo_id);
         assert_eq!(utxo.value, 1000);
         assert_eq!(utxo.block_height, 100);
@@ -333,16 +330,16 @@ mod tests {
         let utxo_id = UtxoId::new(TransactionHash::ZERO, 0);
         let script = Script::empty();
         let mut utxo = ProgrammableUtxo::simple(utxo_id, 1000, script, 100);
-        
+
         // Add a block height time lock
         utxo.add_time_lock(TimeLock {
             lock_type: TimeLockType::BlockHeight,
             value: 200,
         });
-        
+
         // Should not be spendable before block 200
         assert!(!utxo.can_spend(150, 0).unwrap());
-        
+
         // Should be spendable at block 200 or later
         assert!(utxo.can_spend(200, 0).unwrap());
     }
@@ -351,7 +348,7 @@ mod tests {
     fn test_utxo_id_display() {
         let utxo_id = UtxoId::new(TransactionHash::ZERO, 5);
         let display = format!("{}", utxo_id);
-        
+
         assert!(display.contains(":5"));
     }
 }

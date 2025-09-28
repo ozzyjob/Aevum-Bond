@@ -44,8 +44,8 @@ impl ScriptInterpreter {
     /// Create a new script interpreter with default limits
     pub fn new() -> Self {
         Self {
-            max_ops: 1000,        // Prevent infinite loops
-            max_stack_size: 100,  // Prevent memory exhaustion
+            max_ops: 1000,       // Prevent infinite loops
+            max_stack_size: 100, // Prevent memory exhaustion
         }
     }
 
@@ -58,11 +58,7 @@ impl ScriptInterpreter {
     }
 
     /// Execute a script with the given context
-    pub fn execute(
-        &self,
-        script: &[u8],
-        context: &ScriptContext,
-    ) -> BondResult<ScriptResult> {
+    pub fn execute(&self, script: &[u8], context: &ScriptContext) -> BondResult<ScriptResult> {
         let mut stack = Stack::new(self.max_stack_size);
         let mut pc = 0; // Program counter
         let mut op_count = 0;
@@ -94,7 +90,9 @@ impl ScriptInterpreter {
                 Ok(ScriptResult::Failure)
             }
         } else {
-            Ok(ScriptResult::Error("Stack must have exactly one item at end".to_string()))
+            Ok(ScriptResult::Error(
+                "Stack must have exactly one item at end".to_string(),
+            ))
         }
     }
 
@@ -114,10 +112,10 @@ impl ScriptInterpreter {
                 if *pc + size > script.len() {
                     return Ok(ScriptResult::Error("Script truncated".to_string()));
                 }
-                
+
                 let data = script[*pc..*pc + size].to_vec();
                 *pc += size;
-                
+
                 stack.push(data)?;
                 Ok(ScriptResult::Success)
             }
@@ -141,25 +139,29 @@ impl ScriptInterpreter {
                     stack.push(dup)?;
                     Ok(ScriptResult::Success)
                 } else {
-                    Ok(ScriptResult::Error("Cannot duplicate empty stack".to_string()))
+                    Ok(ScriptResult::Error(
+                        "Cannot duplicate empty stack".to_string(),
+                    ))
                 }
             }
 
             // OP_EQUAL (check if top two items are equal)
             0x87 => {
                 if stack.size() < 2 {
-                    return Ok(ScriptResult::Error("Not enough items for OP_EQUAL".to_string()));
+                    return Ok(ScriptResult::Error(
+                        "Not enough items for OP_EQUAL".to_string(),
+                    ));
                 }
-                
+
                 let a = stack.pop().unwrap();
                 let b = stack.pop().unwrap();
-                
+
                 if a == b {
                     stack.push(vec![1])?;
                 } else {
                     stack.push(vec![0])?;
                 }
-                
+
                 Ok(ScriptResult::Success)
             }
 
@@ -180,12 +182,14 @@ impl ScriptInterpreter {
             // OP_CHECKSIG (placeholder for signature verification)
             0xac => {
                 if stack.size() < 2 {
-                    return Ok(ScriptResult::Error("Not enough items for OP_CHECKSIG".to_string()));
+                    return Ok(ScriptResult::Error(
+                        "Not enough items for OP_CHECKSIG".to_string(),
+                    ));
                 }
-                
+
                 let _pubkey = stack.pop().unwrap();
                 let _signature = stack.pop().unwrap();
-                
+
                 // TODO: Implement actual signature verification with ML-DSA
                 // For now, always return true (this is a placeholder)
                 stack.push(vec![1])?;
@@ -196,30 +200,37 @@ impl ScriptInterpreter {
             0xf0 => {
                 if let Some(required_height_bytes) = stack.pop() {
                     if required_height_bytes.len() != 4 {
-                        return Ok(ScriptResult::Error("Invalid block height format".to_string()));
+                        return Ok(ScriptResult::Error(
+                            "Invalid block height format".to_string(),
+                        ));
                     }
-                    
+
                     let required_height = u32::from_le_bytes([
                         required_height_bytes[0],
                         required_height_bytes[1],
                         required_height_bytes[2],
                         required_height_bytes[3],
                     ]);
-                    
+
                     if context.block_height >= required_height {
                         stack.push(vec![1])?;
                     } else {
                         stack.push(vec![0])?;
                     }
-                    
+
                     Ok(ScriptResult::Success)
                 } else {
-                    Ok(ScriptResult::Error("Cannot check block height on empty stack".to_string()))
+                    Ok(ScriptResult::Error(
+                        "Cannot check block height on empty stack".to_string(),
+                    ))
                 }
             }
 
             // Unknown opcode
-            _ => Ok(ScriptResult::Error(format!("Unknown opcode: 0x{:02x}", opcode))),
+            _ => Ok(ScriptResult::Error(format!(
+                "Unknown opcode: 0x{:02x}",
+                opcode
+            ))),
         }
     }
 
@@ -293,7 +304,7 @@ mod tests {
         // Simple script: push 1 (should succeed by itself)
         let script = vec![0x51]; // OP_1
         let result = interpreter.execute(&script, &context).unwrap();
-        
+
         assert_eq!(result, ScriptResult::Success);
     }
 
@@ -305,7 +316,7 @@ mod tests {
         // Script that pushes 0 and verifies (should fail)
         let script = vec![0x00, 0x69]; // OP_0 OP_VERIFY
         let result = interpreter.execute(&script, &context).unwrap();
-        
+
         assert_eq!(result, ScriptResult::Failure);
     }
 
@@ -318,8 +329,8 @@ mod tests {
         let mut script = vec![0x04]; // Push 4 bytes
         script.extend_from_slice(&50u32.to_le_bytes()); // Block height 50
         script.push(0xf0); // OP_CHECKBLOCKHEIGHT
-        // Result should be true (1) left on stack
-        
+                           // Result should be true (1) left on stack
+
         let result = interpreter.execute(&script, &context).unwrap();
         assert_eq!(result, ScriptResult::Success);
     }
@@ -331,11 +342,11 @@ mod tests {
 
         // Script: push 42, duplicate, check equal
         let script = vec![
-            0x01, 42,    // Push byte 42
-            0x76,        // OP_DUP
-            0x87,        // OP_EQUAL
+            0x01, 42,   // Push byte 42
+            0x76, // OP_DUP
+            0x87, // OP_EQUAL
         ];
-        
+
         let result = interpreter.execute(&script, &context).unwrap();
         assert_eq!(result, ScriptResult::Success);
     }
@@ -348,7 +359,7 @@ mod tests {
         // Script with too many operations
         let script = vec![0x51; 10]; // 10 OP_1 operations
         let result = interpreter.execute(&script, &context).unwrap();
-        
+
         if let ScriptResult::Error(msg) = result {
             assert!(msg.contains("Operation limit exceeded"));
         } else {

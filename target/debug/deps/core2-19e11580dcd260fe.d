@@ -1,0 +1,12 @@
+/home/aevum/Dev-Muito/Aevum&Bold/target/debug/deps/core2-19e11580dcd260fe.d: /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/core2-0.4.0/src/lib.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/core2-0.4.0/src/error.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/core2-0.4.0/src/io/mod.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/core2-0.4.0/src/io/cursor.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/core2-0.4.0/src/io/error.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/core2-0.4.0/src/io/impls.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/core2-0.4.0/src/io/traits.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/core2-0.4.0/src/io/util.rs
+
+/home/aevum/Dev-Muito/Aevum&Bold/target/debug/deps/libcore2-19e11580dcd260fe.rmeta: /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/core2-0.4.0/src/lib.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/core2-0.4.0/src/error.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/core2-0.4.0/src/io/mod.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/core2-0.4.0/src/io/cursor.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/core2-0.4.0/src/io/error.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/core2-0.4.0/src/io/impls.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/core2-0.4.0/src/io/traits.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/core2-0.4.0/src/io/util.rs
+
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/core2-0.4.0/src/lib.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/core2-0.4.0/src/error.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/core2-0.4.0/src/io/mod.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/core2-0.4.0/src/io/cursor.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/core2-0.4.0/src/io/error.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/core2-0.4.0/src/io/impls.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/core2-0.4.0/src/io/traits.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/core2-0.4.0/src/io/util.rs:

@@ -1,5 +1,5 @@
 //! Desktop Wallet
-//! 
+//!
 //! This crate provides a Tauri-based desktop wallet for
 //! the Aevum & Bond ecosystem.
 

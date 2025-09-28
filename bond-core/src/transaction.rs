@@ -1,7 +1,7 @@
+use crate::{BondError, BondResult, Script, UtxoId};
+use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use sha3::{Digest, Keccak256};
-use chrono::{DateTime, Utc};
-use crate::{BondError, BondResult, UtxoId, Script};
 
 /// Transaction hash (Keccak-256)
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
@@ -97,7 +97,10 @@ impl Transaction {
     }
 
     /// Calculate the total input value (requires UTXO set for validation)
-    pub fn total_input_value(&self, utxo_set: &std::collections::HashMap<UtxoId, TransactionOutput>) -> BondResult<u64> {
+    pub fn total_input_value(
+        &self,
+        utxo_set: &std::collections::HashMap<UtxoId, TransactionOutput>,
+    ) -> BondResult<u64> {
         if self.is_coinbase() {
             return Ok(0); // Coinbase has no input value
         }
@@ -105,10 +108,12 @@ impl Transaction {
         let mut total = 0u64;
         for input in &self.inputs {
             if let Some(utxo) = utxo_set.get(&input.previous_output) {
-                total = total.checked_add(utxo.value)
-                    .ok_or_else(|| BondError::ArithmeticOverflow {
-                        operation: "input value sum".to_string(),
-                    })?;
+                total =
+                    total
+                        .checked_add(utxo.value)
+                        .ok_or_else(|| BondError::ArithmeticOverflow {
+                            operation: "input value sum".to_string(),
+                        })?;
             } else {
                 return Err(BondError::InvalidTransaction {
                     reason: format!("Referenced UTXO not found: {}", input.previous_output),
@@ -122,23 +127,28 @@ impl Transaction {
     pub fn total_output_value(&self) -> BondResult<u64> {
         let mut total = 0u64;
         for output in &self.outputs {
-            total = total.checked_add(output.value)
-                .ok_or_else(|| BondError::ArithmeticOverflow {
-                    operation: "output value sum".to_string(),
-                })?;
+            total =
+                total
+                    .checked_add(output.value)
+                    .ok_or_else(|| BondError::ArithmeticOverflow {
+                        operation: "output value sum".to_string(),
+                    })?;
         }
         Ok(total)
     }
 
     /// Calculate the transaction fee
-    pub fn fee(&self, utxo_set: &std::collections::HashMap<UtxoId, TransactionOutput>) -> BondResult<u64> {
+    pub fn fee(
+        &self,
+        utxo_set: &std::collections::HashMap<UtxoId, TransactionOutput>,
+    ) -> BondResult<u64> {
         if self.is_coinbase() {
             return Ok(0); // Coinbase transactions have no fee
         }
 
         let input_value = self.total_input_value(utxo_set)?;
         let output_value = self.total_output_value()?;
-        
+
         if input_value < output_value {
             return Err(BondError::InvalidTransaction {
                 reason: "Output value exceeds input value".to_string(),
@@ -158,12 +168,10 @@ impl Transaction {
         }
 
         // Input/output checks
-        if !self.is_coinbase() {
-            if self.inputs.is_empty() {
-                return Err(BondError::InvalidTransaction {
-                    reason: "Non-coinbase transaction must have at least one input".to_string(),
-                });
-            }
+        if !self.is_coinbase() && self.inputs.is_empty() {
+            return Err(BondError::InvalidTransaction {
+                reason: "Non-coinbase transaction must have at least one input".to_string(),
+            });
         }
 
         if self.outputs.is_empty() {
@@ -173,12 +181,10 @@ impl Transaction {
         }
 
         // Coinbase validation
-        if self.is_coinbase() {
-            if self.inputs.len() != 1 {
-                return Err(BondError::InvalidTransaction {
-                    reason: "Coinbase transaction must have exactly one input".to_string(),
-                });
-            }
+        if self.is_coinbase() && self.inputs.len() != 1 {
+            return Err(BondError::InvalidTransaction {
+                reason: "Coinbase transaction must have exactly one input".to_string(),
+            });
         }
 
         // Value validation
@@ -248,13 +254,13 @@ impl std::str::FromStr for TransactionHash {
         let bytes = hex::decode(s).map_err(|_| BondError::InvalidTransaction {
             reason: format!("Invalid transaction hash: {}", s),
         })?;
-        
+
         if bytes.len() != 32 {
             return Err(BondError::InvalidTransaction {
                 reason: format!("Transaction hash must be 32 bytes, got {}", bytes.len()),
             });
         }
-        
+
         let mut array = [0u8; 32];
         array.copy_from_slice(&bytes);
         Ok(TransactionHash(array))
@@ -265,11 +271,10 @@ impl std::str::FromStr for TransactionHash {
 mod tests {
     use super::*;
 
-
     #[test]
     fn test_coinbase_transaction() {
         let coinbase = Transaction::coinbase(5_000_000_000, b"Genesis Block".to_vec());
-        
+
         assert!(coinbase.is_coinbase());
         assert_eq!(coinbase.inputs.len(), 1);
         assert_eq!(coinbase.outputs.len(), 1);
@@ -281,7 +286,7 @@ mod tests {
         let tx = Transaction::coinbase(1000, vec![]);
         let hash1 = tx.hash().unwrap();
         let hash2 = tx.hash().unwrap();
-        
+
         // Hash should be deterministic
         assert_eq!(hash1, hash2);
         assert_ne!(hash1, TransactionHash::ZERO);

@@ -1,7 +1,7 @@
+use crate::{BondError, BondResult, Transaction};
+use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use sha3::{Digest, Keccak256};
-use chrono::{DateTime, Utc};
-use crate::{BondError, BondResult, Transaction};
 
 /// Block header containing metadata and proof-of-work
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -80,7 +80,10 @@ impl BlockHeader {
 impl Block {
     /// Create a new block
     pub fn new(header: BlockHeader, transactions: Vec<Transaction>) -> Self {
-        Self { header, transactions }
+        Self {
+            header,
+            transactions,
+        }
     }
 
     /// Calculate the hash of this block
@@ -103,22 +106,22 @@ impl Block {
         // Build Merkle tree
         while hashes.len() > 1 {
             let mut next_level = Vec::new();
-            
+
             for chunk in hashes.chunks(2) {
                 let mut hasher = Keccak256::new();
-                hasher.update(&chunk[0]);
-                
+                hasher.update(chunk[0]);
+
                 // If odd number of hashes, duplicate the last one
                 if chunk.len() == 2 {
-                    hasher.update(&chunk[1]);
+                    hasher.update(chunk[1]);
                 } else {
-                    hasher.update(&chunk[0]);
+                    hasher.update(chunk[0]);
                 }
-                
+
                 let hash = hasher.finalize();
                 next_level.push(hash.into());
             }
-            
+
             hashes = next_level;
         }
 
@@ -196,7 +199,7 @@ impl MerkleRoot {
 impl DifficultyTarget {
     /// Maximum difficulty target (easiest mining)
     pub const MAX: DifficultyTarget = DifficultyTarget([0xFF; 32]);
-    
+
     /// Minimum difficulty target (hardest mining)
     pub const MIN: DifficultyTarget = DifficultyTarget([0x00; 32]);
 
@@ -237,14 +240,14 @@ impl std::str::FromStr for BlockHash {
             expected: "valid hex string".to_string(),
             actual: s.to_string(),
         })?;
-        
+
         if bytes.len() != 32 {
             return Err(BondError::InvalidBlockHash {
                 expected: "32 bytes".to_string(),
                 actual: format!("{} bytes", bytes.len()),
             });
         }
-        
+
         let mut array = [0u8; 32];
         array.copy_from_slice(&bytes);
         Ok(BlockHash(array))
@@ -269,7 +272,7 @@ mod tests {
 
         let hash1 = header.hash().unwrap();
         let hash2 = header.hash().unwrap();
-        
+
         // Hash should be deterministic
         assert_eq!(hash1, hash2);
     }
@@ -300,7 +303,7 @@ mod tests {
     fn test_difficulty_target_comparison() {
         let easy_target = DifficultyTarget([0xFF; 32]);
         let hard_target = DifficultyTarget([0x00; 32]);
-        
+
         assert!(easy_target > hard_target);
         assert!(hard_target < easy_target);
     }

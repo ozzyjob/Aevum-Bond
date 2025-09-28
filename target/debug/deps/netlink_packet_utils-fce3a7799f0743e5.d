@@ -1,0 +1,10 @@
+/home/aevum/Dev-Muito/Aevum&Bold/target/debug/deps/netlink_packet_utils-fce3a7799f0743e5.d: /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-packet-utils-0.5.2/src/lib.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-packet-utils-0.5.2/src/macros.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-packet-utils-0.5.2/src/errors.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-packet-utils-0.5.2/src/parsers.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-packet-utils-0.5.2/src/traits.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-packet-utils-0.5.2/src/nla.rs
+
+/home/aevum/Dev-Muito/Aevum&Bold/target/debug/deps/libnetlink_packet_utils-fce3a7799f0743e5.rmeta: /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-packet-utils-0.5.2/src/lib.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-packet-utils-0.5.2/src/macros.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-packet-utils-0.5.2/src/errors.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-packet-utils-0.5.2/src/parsers.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-packet-utils-0.5.2/src/traits.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-packet-utils-0.5.2/src/nla.rs
+
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-packet-utils-0.5.2/src/lib.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-packet-utils-0.5.2/src/macros.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-packet-utils-0.5.2/src/errors.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-packet-utils-0.5.2/src/parsers.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-packet-utils-0.5.2/src/traits.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/netlink-packet-utils-0.5.2/src/nla.rs:

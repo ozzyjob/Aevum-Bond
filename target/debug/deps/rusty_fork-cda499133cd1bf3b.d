@@ -1,0 +1,11 @@
+/home/aevum/Dev-Muito/Aevum&Bold/target/debug/deps/rusty_fork-cda499133cd1bf3b.d: /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusty-fork-0.3.0/src/lib.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusty-fork-0.3.0/src/sugar.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusty-fork-0.3.0/src/fork_test.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusty-fork-0.3.0/src/error.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusty-fork-0.3.0/src/cmdline.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusty-fork-0.3.0/src/fork.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusty-fork-0.3.0/src/child_wrapper.rs
+
+/home/aevum/Dev-Muito/Aevum&Bold/target/debug/deps/librusty_fork-cda499133cd1bf3b.rmeta: /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusty-fork-0.3.0/src/lib.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusty-fork-0.3.0/src/sugar.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusty-fork-0.3.0/src/fork_test.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusty-fork-0.3.0/src/error.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusty-fork-0.3.0/src/cmdline.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusty-fork-0.3.0/src/fork.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusty-fork-0.3.0/src/child_wrapper.rs
+
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusty-fork-0.3.0/src/lib.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusty-fork-0.3.0/src/sugar.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusty-fork-0.3.0/src/fork_test.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusty-fork-0.3.0/src/error.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusty-fork-0.3.0/src/cmdline.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusty-fork-0.3.0/src/fork.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusty-fork-0.3.0/src/child_wrapper.rs:

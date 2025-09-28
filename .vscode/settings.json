@@ -1,0 +1,131 @@
+{
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": true,
+    "rust": true,
+    "toml": true,
+    "yaml": true,
+    "json": true
+  },
+  "github.copilot.advanced": {
+    "debug.overrideEngine": "copilot-chat",
+    "debug.useNodeRuntime": true,
+    "inlineSuggestEnable": true,
+    "listCount": 10
+  },
+  "github.copilot.chat.localeOverride": "pt-br",
+  "github.copilot.editor.enableAutoCompletions": true,
+  "github.copilot.chat.welcomeMessage": "disabled",
+  "rust-analyzer.checkOnSave.command": "clippy",
+  "rust-analyzer.cargo.features": "all",
+  "rust-analyzer.imports.granularity.group": "module",
+  "rust-analyzer.imports.prefix": "crate",
+  "rust-analyzer.diagnostics.enable": true,
+  "rust-analyzer.hover.actions.enable": true,
+  "rust-analyzer.lens.enable": true,
+  "rust-analyzer.lens.implementations.enable": true,
+  "rust-analyzer.lens.references.enable": true,
+  "rust-analyzer.lens.methodReferences.enable": true,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "editor.rulers": [
+    100,
+    120
+  ],
+  "editor.tabSize": 4,
+  "editor.insertSpaces": true,
+  "[rust]": {
+    "editor.defaultFormatter": "rust-lang.rust-analyzer",
+    "editor.tabSize": 4,
+    "editor.wordWrap": "bounded",
+    "editor.wordWrapColumn": 100
+  },
+  "[toml]": {
+    "editor.defaultFormatter": "tamasfe.even-better-toml"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "vscode.markdown-language-features",
+    "editor.wordWrap": "on"
+  },
+  "files.exclude": {
+    "**/target": true,
+    "**/.git": true,
+    "**/Cargo.lock": false
+  },
+  "files.watcherExclude": {
+    "**/target/**": true
+  },
+  "search.exclude": {
+    "**/target": true,
+    "**/Cargo.lock": true
+  },
+  "terminal.integrated.shell.linux": "/bin/zsh",
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "git.ignoreLimitWarning": true,
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "markdown.extension.toc.levels": "2..6",
+  "markdown.extension.preview.autoShowPreviewToSide": false,
+  "errorLens.enabledDiagnosticLevels": [
+    "warning",
+    "error"
+  ],
+  "errorLens.excludeBySource": [
+    "clippy"
+  ],
+  "todo-tree.general.tags": [
+    "TODO",
+    "FIXME",
+    "HACK",
+    "NOTE",
+    "BUG",
+    "SECURITY",
+    "PERFORMANCE"
+  ],
+  "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\*))\\s*($TAGS)",
+  "workbench.colorCustomizations": {
+    "activityBarBadge.background": "#FF6B35",
+    "list.activeSelectionForeground": "#FF6B35",
+    "list.inactiveSelectionForeground": "#FF6B35",
+    "list.hoverForeground": "#FF6B35",
+    "scrollbarSlider.activeBackground": "#FF6B3550",
+    "editorSuggestWidget.highlightForeground": "#FF6B35",
+    "textLink.foreground": "#FF6B35",
+    "progressBar.background": "#FF6B35",
+    "pickerGroup.foreground": "#FF6B35",
+    "tab.activeBorder": "#FF6B35"
+  },
+  "copilot.context": {
+    "aevum-bond": {
+      "description": "Aevum & Bond dual-ledger blockchain development context",
+      "instructions": [
+        "You are working on a post-quantum dual-ledger blockchain system.",
+        "Bond Chain uses Proof of Work (PoW) with pUTXO model for maximum security.",
+        "Aevum Chain uses Proof of Delegation (PoD) with Account model for high performance.",
+        "All cryptographic operations must be post-quantum secure using ML-DSA.",
+        "Code must be memory-safe, performant, and follow Rust best practices.",
+        "Security considerations are paramount in all implementations.",
+        "Focus on modular, testable, and well-documented code."
+      ],
+      "patterns": [
+        "Immutable data structures for blockchain components",
+        "Result<T, E> for error handling",
+        "Async/await for I/O operations",
+        "Arc<Mutex<T>> for shared state",
+        "Serde for serialization",
+        "Thiserror for error definitions",
+        "Tracing for logging"
+      ]
+    }
+  }
+}

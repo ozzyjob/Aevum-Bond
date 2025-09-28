@@ -1,0 +1,10 @@
+/home/aevum/Dev-Muito/Aevum&Bold/target/debug/deps/futures_bounded-e05a2cd3fd1102e3.d: /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futures-bounded-0.2.4/src/lib.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futures-bounded-0.2.4/src/futures_map.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futures-bounded-0.2.4/src/futures_set.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futures-bounded-0.2.4/src/futures_tuple_set.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futures-bounded-0.2.4/src/stream_map.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futures-bounded-0.2.4/src/stream_set.rs
+
+/home/aevum/Dev-Muito/Aevum&Bold/target/debug/deps/libfutures_bounded-e05a2cd3fd1102e3.rmeta: /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futures-bounded-0.2.4/src/lib.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futures-bounded-0.2.4/src/futures_map.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futures-bounded-0.2.4/src/futures_set.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futures-bounded-0.2.4/src/futures_tuple_set.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futures-bounded-0.2.4/src/stream_map.rs /home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futures-bounded-0.2.4/src/stream_set.rs
+
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futures-bounded-0.2.4/src/lib.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futures-bounded-0.2.4/src/futures_map.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futures-bounded-0.2.4/src/futures_set.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futures-bounded-0.2.4/src/futures_tuple_set.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futures-bounded-0.2.4/src/stream_map.rs:
+/home/aevum/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futures-bounded-0.2.4/src/stream_set.rs:
