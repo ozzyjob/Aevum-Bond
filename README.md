@@ -10,8 +10,8 @@
 
 O **Aevum & Bond Blockchain Ecosystem** é uma implementação dual de protocolos blockchain em Rust, combinando:
 
-- **🔗 Bond Protocol**: Blockchain de Proof-of-Work (PoW) com modelo pUTXO para máxima segurança
-- **⚡ Aevum Protocol**: Blockchain de Proof-of-Dedication (PoD) com Smart Accounts para velocidade
+- 🔗 **Bond Protocol**: Blockchain de Proof-of-Work (PoW) com modelo pUTXO para máxima segurança
+- ⚡ **Aevum Protocol**: Blockchain de Proof-of-Dedication (PoD) com Smart Accounts para velocidade
 
 ## 🏗️ Arquitetura
 
@@ -43,18 +43,18 @@ aevum-bond-protocol/
 ## ✨ Características Principais
 
 ### 🛡️ Segurança Post-Quântica
-- **ML-DSA (CRYSTALS-Dilithium)** para assinaturas digitais
-- **Kyber** para encriptação de chave pública
-- **Resistente a ataques quânticos**
+- ML-DSA (CRYSTALS-Dilithium) para assinaturas digitais
+- Kyber para encriptação de chave pública
+- Resistente a ataques quânticos
 
 ### ⚖️ Consenso Híbrido
-- **Bond**: Proof-of-Work para máxima descentralização
-- **Aevum**: Proof-of-Dedication para eficiência energética
+- Bond: Proof-of-Work para máxima descentralização
+- Aevum: Proof-of-Dedication para eficiência energética
 
 ### 🔄 Interoperabilidade
-- **Bridge nativo** entre as duas chains
-- **Atomic swaps** cross-chain
-- **Shared validator set** para segurança
+- Bridge nativo entre as duas chains
+- Atomic swaps cross-chain
+- Shared validator set para segurança
 
 ## 🚀 Quick Start
 
@@ -96,22 +96,22 @@ cargo test --all
 ## 📊 Status do Projeto
 
 ### ✅ Sprint 1 - Core Protocol (Completo)
-- [x] Bond Protocol core implementado
-- [x] Sistema de transações e UTXOs
-- [x] Algoritmo de mining PoW
-- [x] Engine de scripts básico
-- [x] CLI funcional
-- [x] 58 testes implementados (5 camadas)
+- ✅ Bond Protocol core implementado
+- ✅ Sistema de transações e UTXOs
+- ✅ Algoritmo de mining PoW
+- ✅ Engine de scripts básico
+- ✅ CLI funcional
+- ✅ 58 testes implementados (5 camadas)
 
 ### 🔄 Próximos Sprints
-- **Sprint 2**: Criptografia pós-quântica
-- **Sprint 3**: Rede P2P
-- **Sprint 4**: Sincronização de blockchain
-- **Sprint 5**: Pool de transações
-- **Sprint 6**: Aevum Protocol core
-- **Sprint 7**: Bridge inter-chain
-- **Sprint 8**: APIs REST/GraphQL
-- **Sprint 9**: Wallet desktop
+- Sprint 2: Criptografia pós-quântica
+- Sprint 3: Rede P2P
+- Sprint 4: Sincronização de blockchain
+- Sprint 5: Pool de transações
+- Sprint 6: Aevum Protocol core
+- Sprint 7: Bridge inter-chain
+- Sprint 8: APIs REST/GraphQL
+- Sprint 9: Wallet desktop
 
 ## 🧪 Testes
 
@@ -140,19 +140,19 @@ cargo test --test "*security*"     # Layer 5: Security
 ## 📚 Documentação
 
 ### Arquitetura
-- [📋 Visão Geral da Arquitetura](docs/architecture-overview.md)
-- [🔗 Bond Protocol Spec](docs/bond-protocol-spec.md)
-- [⚡ Aevum Protocol Spec](docs/aevum-protocol-spec.md)
+- 📋 Visão Geral da Arquitetura
+- 🔗 Bond Protocol Spec
+- ⚡ Aevum Protocol Spec
 
 ### Desenvolvimento
-- [🛠️ Guia de Desenvolvimento](docs/development-guide.md)
-- [🧪 Estratégia de Testes](docs/testing-strategy.md)
-- [🔒 Segurança](docs/security-guide.md)
+- 🛠️ Guia de Desenvolvimento
+- 🧪 Estratégia de Testes
+- 🔒 Segurança
 
 ### API Reference
-- [🛠️ CLI Usage](docs/bond-cli-usage.md)
-- [📡 RPC API](docs/rpc-api.md)
-- [🔌 SDK Reference](docs/sdk-reference.md)
+- 🛠️ CLI Usage
+- 📡 RPC API
+- 🔌 SDK Reference
 
 ## 🤝 Contribuindo
 
@@ -164,42 +164,42 @@ cargo test --test "*security*"     # Layer 5: Security
 5. Abra um Pull Request
 
 ### Padrões de Código
-- **Rust 2021 Edition**
-- **Formatação**: `cargo fmt`
-- **Linting**: `cargo clippy`
-- **Testes**: Todos os PRs devem incluir testes
-- **Documentação**: Funções públicas devem ter doc comments
+- Rust 2021 Edition
+- Formatação: cargo fmt
+- Linting: cargo clippy
+- Testes: Todos os PRs devem incluir testes
+- Documentação: Funções públicas devem ter doc comments
 
 ### Reportar Issues
-- 🐛 [Bug Reports](https://github.com/ozzyjob/Aevum-Bond/issues/new?template=bug_report.md)
-- 💡 [Feature Requests](https://github.com/ozzyjob/Aevum-Bond/issues/new?template=feature_request.md)
-- 🔒 [Security Issues](mailto:security@aevum-bond.io)
+- 🐛 Bug Reports
+- 💡 Feature Requests
+- 🔒 Security Issues
 
 ## 📈 Roadmap
 
 ### 2024 Q4
-- [x] Core Protocol Implementation
-- [x] Testing Infrastructure
-- [ ] Post-Quantum Cryptography
-- [ ] P2P Networking
+- ✅ Core Protocol Implementation
+- ✅ Testing Infrastructure
+- ✅ Post-Quantum Cryptography
+- ✅ P2P Networking
 
 ### 2025 Q1
-- [ ] Aevum Protocol
-- [ ] Inter-chain Bridge
-- [ ] REST/GraphQL APIs
-- [ ] Desktop Wallet
+- ⚡ Aevum Protocol
+- ⚡ Inter-chain Bridge
+- ⚡ REST/GraphQL APIs
+- ⚡ Desktop Wallet
 
 ### 2025 Q2
-- [ ] Mobile Wallets
-- [ ] Smart Contracts
-- [ ] DeFi Protocols
-- [ ] Mainnet Launch
+- ⚡ Mobile Wallets
+- ⚡ Smart Contracts
+- ⚡ DeFi Protocols
+- ⚡ Mainnet Launch
 
 ## 🏆 Reconhecimentos
 
-- **Rust Community** - Pela linguagem incrível
-- **NIST** - Pelos padrões de criptografia pós-quântica
-- **Bitcoin & Ethereum** - Pela inspiração arquitetural
+- Rust Community - Pela linguagem incrível
+- NIST - Pelos padrões de criptografia pós-quântica
+- Bitcoin & Ethereum - Pela inspiração arquitetural
 
 ## 📄 Licença
 
@@ -207,17 +207,11 @@ Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICE
 
 ## 📞 Contato
 
-- **Website**: [https://aevum.bond](https://aevum.bond)
-- **Email**: [contact@aevum.bond](mailto:hi@aevum.bond)
-- **Twitter**: [@AevumBond](https://x.com/AevumBond)
-- **Discord**: [Aevum & Bond Community](https://discord.gg/aevum-bond)
+- Website: https://aevum.bond
+- Email: contact@aevum.bond
+- Twitter: @AevumBond
+- Discord: Aevum & Bond Community
 
----
+🚀 Built with Rust | ⚡ Powered by Innovation | 🛡️ Secured by Post-Quantum Cryptography
 
-<div align="center">
-
-**🚀 Built with Rust | ⚡ Powered by Innovation | 🛡️ Secured by Post-Quantum Cryptography**
-
-[⭐ Star this repo](https://github.com/ozzyjob/Aevum-Bond) | [🍴 Fork it](https://github.com/ozzyjob/Aevum-Bond/fork) | [📋 Issues](https://github.com/ozzyjob/Aevum-Bond/issues)
-
-</div>
+⭐ Star this repo | 🍴 Fork it | 📋 Issues
