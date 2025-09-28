@@ -207,8 +207,8 @@ Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICE
 
 ## 📞 Contato
 
-- **Website**: [https://aevum-bond.io](https://aevum.bond)
-- **Email**: [contact@aevum-bond.io](mailto:hi@aevum.bond)
+- **Website**: [https://aevum.bond](https://aevum.bond)
+- **Email**: [contact@aevum.bond](mailto:hi@aevum.bond)
 - **Twitter**: [@AevumBond](https://x.com/AevumBond)
 - **Discord**: [Aevum & Bond Community](https://discord.gg/aevum-bond)
 
