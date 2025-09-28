@@ -1,0 +1,1 @@
+bond_core::BlockHash: std::convert::From<[u8; 32]>

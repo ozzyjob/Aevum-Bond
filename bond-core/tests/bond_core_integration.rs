@@ -92,7 +92,7 @@ fn test_utxo_creation_and_management_integration() {
     // Verify UTXO ID display format
     let utxo_display = format!("{}", utxo_id);
     assert!(
-        utxo_display.len() > 0,
+        !utxo_display.is_empty(),
         "UTXO ID should have a display format"
     );
 
@@ -101,7 +101,7 @@ fn test_utxo_creation_and_management_integration() {
         code: vec![0x63, 0x64, 0x68],
     }; // Simple script
     let programmable_utxo = ProgrammableUtxo::new(
-        utxo_id.clone(),
+        utxo_id,
         1_000_000_000, // 1 BND
         script,
         0, // No timelock for this test

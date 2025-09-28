@@ -10,3 +10,9 @@ description = "Shared Post-Quantum Cryptography for Aevum & Bond"
 
 [dependencies]
 serde.workspace = true
+pqcrypto-dilithium.workspace = true
+ed25519-dalek.workspace = true
+rand.workspace = true
+hex.workspace = true
+thiserror.workspace = true
+anyhow.workspace = true

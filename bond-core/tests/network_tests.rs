@@ -367,7 +367,7 @@ fn test_network_load_balancing() {
     network.connect_all_nodes();
 
     // Test different mining configurations
-    let mining_configs = vec![
+    let mining_configs = [
         vec![0],                // Single miner
         vec![0, 1],             // Two miners
         vec![0, 1, 2, 3],       // Four miners

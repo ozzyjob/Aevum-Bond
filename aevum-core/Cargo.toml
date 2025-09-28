@@ -9,4 +9,5 @@ homepage.workspace = true
 description = "Aevum Protocol: Post-Quantum Proof-of-Dedication Transactional Layer"
 
 [dependencies]
+shared-crypto = { path = "../shared-crypto" }
 serde.workspace = true

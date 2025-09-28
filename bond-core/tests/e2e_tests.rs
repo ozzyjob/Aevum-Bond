@@ -1,4 +1,4 @@
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::process::Command;
 
 /// End-to-End tests for CLI functionality
@@ -21,7 +21,7 @@ fn get_cli_binary_paths() -> (PathBuf, PathBuf, PathBuf) {
     )
 }
 
-fn binary_exists(path: &PathBuf) -> bool {
+fn binary_exists(path: &Path) -> bool {
     path.exists()
 }
 
@@ -41,7 +41,7 @@ fn test_cli_help_commands() {
         match output {
             Ok(result) if result.status.success() => {
                 let stdout = String::from_utf8_lossy(&result.stdout);
-                if stdout.len() > 0 {
+                if !stdout.is_empty() {
                     successful_tests += 1;
                     println!("✅ Bond CLI help command passed");
                 } else {
@@ -62,7 +62,7 @@ fn test_cli_help_commands() {
         match output {
             Ok(result) if result.status.success() => {
                 let stdout = String::from_utf8_lossy(&result.stdout);
-                if stdout.len() > 0 {
+                if !stdout.is_empty() {
                     successful_tests += 1;
                     println!("✅ Aevum CLI help command passed");
                 } else {
@@ -83,7 +83,7 @@ fn test_cli_help_commands() {
         match output {
             Ok(result) if result.status.success() => {
                 let stdout = String::from_utf8_lossy(&result.stdout);
-                if stdout.len() > 0 {
+                if !stdout.is_empty() {
                     successful_tests += 1;
                     println!("✅ Wallet CLI help command passed");
                 } else {
@@ -199,7 +199,7 @@ fn test_cli_error_handling() {
             Ok(result) if !result.status.success() => {
                 let stderr = String::from_utf8_lossy(&result.stderr);
                 let stdout = String::from_utf8_lossy(&result.stdout);
-                if stderr.len() > 0 || stdout.len() > 0 {
+                if !stderr.is_empty() || !stdout.is_empty() {
                     graceful_failures += 1;
                     println!("✅ Bond CLI error handling passed");
                 } else {
@@ -221,7 +221,7 @@ fn test_cli_error_handling() {
             Ok(result) if !result.status.success() => {
                 let stderr = String::from_utf8_lossy(&result.stderr);
                 let stdout = String::from_utf8_lossy(&result.stdout);
-                if stderr.len() > 0 || stdout.len() > 0 {
+                if !stderr.is_empty() || !stdout.is_empty() {
                     graceful_failures += 1;
                     println!("✅ Aevum CLI error handling passed");
                 } else {
@@ -243,7 +243,7 @@ fn test_cli_error_handling() {
             Ok(result) if !result.status.success() => {
                 let stderr = String::from_utf8_lossy(&result.stderr);
                 let stdout = String::from_utf8_lossy(&result.stdout);
-                if stderr.len() > 0 || stdout.len() > 0 {
+                if !stderr.is_empty() || !stdout.is_empty() {
                     graceful_failures += 1;
                     println!("✅ Wallet CLI error handling passed");
                 } else {
@@ -297,7 +297,7 @@ fn test_basic_cli_functionality() {
             Ok(result) => {
                 let stdout = String::from_utf8_lossy(&result.stdout);
                 let stderr = String::from_utf8_lossy(&result.stderr);
-                if result.status.success() || stdout.len() > 0 || stderr.len() > 0 {
+                if result.status.success() || !stdout.is_empty() || !stderr.is_empty() {
                     functional_tests += 1;
                     println!("✅ Bond CLI genesis command handled appropriately");
                 } else {
@@ -327,7 +327,7 @@ fn test_basic_cli_functionality() {
             Ok(result) => {
                 let stdout = String::from_utf8_lossy(&result.stdout);
                 let stderr = String::from_utf8_lossy(&result.stderr);
-                if result.status.success() || stdout.len() > 0 || stderr.len() > 0 {
+                if result.status.success() || !stdout.is_empty() || !stderr.is_empty() {
                     functional_tests += 1;
                     println!("✅ Bond CLI stats command handled appropriately");
                 } else {
@@ -357,7 +357,7 @@ fn test_basic_cli_functionality() {
             Ok(result) => {
                 let stdout = String::from_utf8_lossy(&result.stdout);
                 let stderr = String::from_utf8_lossy(&result.stderr);
-                if result.status.success() || stdout.len() > 0 || stderr.len() > 0 {
+                if result.status.success() || !stdout.is_empty() || !stderr.is_empty() {
                     functional_tests += 1;
                     println!("✅ Bond CLI validate command handled appropriately");
                 } else {

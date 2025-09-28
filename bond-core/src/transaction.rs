@@ -2,6 +2,7 @@ use crate::{BondError, BondResult, Script, UtxoId};
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use sha3::{Digest, Keccak256};
+use shared_crypto::{signature, PublicKey, SecurityLevel, Signature};
 
 /// Transaction hash (Keccak-256)
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
@@ -203,6 +204,105 @@ impl Transaction {
     pub fn size(&self) -> BondResult<usize> {
         let serialized = bincode::serialize(self)?;
         Ok(serialized.len())
+    }
+
+    /// Validate all signatures in the transaction
+    /// This method will be enhanced in Sprint 5 with full pUTXO script validation
+    pub fn validate_signatures(
+        &self,
+        utxo_set: &std::collections::HashMap<UtxoId, TransactionOutput>,
+    ) -> BondResult<()> {
+        if self.is_coinbase() {
+            return Ok(()); // Coinbase transactions don't have signatures to validate
+        }
+
+        // For each input, validate the signature against the referenced UTXO
+        for input in &self.inputs {
+            let utxo = utxo_set.get(&input.previous_output).ok_or_else(|| {
+                BondError::InvalidTransaction {
+                    reason: format!("Referenced UTXO not found: {}", input.previous_output),
+                }
+            })?;
+
+            // Get the message to be signed (transaction hash without signatures)
+            let message = self.signature_hash(input)?;
+
+            // Extract signature and public key from scripts (simplified for Sprint 2)
+            // This will be replaced with full pUTXO script validation in Sprint 5
+            if let Some((signature, public_key)) = self.extract_signature_and_key(input, utxo)? {
+                let is_valid =
+                    signature::verify(&signature, &message, &public_key).map_err(|e| {
+                        BondError::CryptographicError {
+                            reason: e.to_string(),
+                        }
+                    })?;
+
+                if !is_valid {
+                    return Err(BondError::InvalidTransaction {
+                        reason: format!("Invalid signature for input: {}", input.previous_output),
+                    });
+                }
+            }
+        }
+
+        Ok(())
+    }
+
+    /// Calculate the signature hash for a specific input
+    /// This is the message that gets signed
+    pub fn signature_hash(&self, input: &TransactionInput) -> BondResult<Vec<u8>> {
+        // Create a copy of the transaction with all script_sig fields cleared
+        let mut tx_copy = self.clone();
+        for input_copy in &mut tx_copy.inputs {
+            input_copy.script_sig = Script::new(vec![]);
+        }
+
+        // Serialize and hash
+        let serialized = bincode::serialize(&tx_copy)?;
+        let mut hasher = Keccak256::new();
+        hasher.update(&serialized);
+        hasher.update(input.previous_output.to_bytes());
+        Ok(hasher.finalize().to_vec())
+    }
+
+    /// Extract signature and public key from transaction scripts
+    /// TEMPORARY: Simplified implementation for Sprint 2
+    /// TODO: Replace with full pUTXO script execution in Sprint 5
+    pub fn extract_signature_and_key(
+        &self,
+        input: &TransactionInput,
+        _utxo: &TransactionOutput, // Will be used in Sprint 5 for full pUTXO validation
+    ) -> BondResult<Option<(Signature, PublicKey)>> {
+        // For Sprint 2, we use a simplified signature format:
+        // script_sig contains: [signature_bytes] [public_key_bytes]
+        // script_pubkey contains: [public_key_hash] (for validation)
+
+        let script_sig_data = input.script_sig.data();
+
+        // Check if we have enough data for ML-DSA-65 (Bond uses Level 3 security)
+        let expected_sig_size = SecurityLevel::Level3.signature_size();
+        let expected_key_size = SecurityLevel::Level3.public_key_size();
+
+        if script_sig_data.len() < expected_sig_size + expected_key_size {
+            return Ok(None); // Not a signature script
+        }
+
+        // Extract signature and public key
+        let signature_bytes = &script_sig_data[..expected_sig_size];
+        let public_key_bytes =
+            &script_sig_data[expected_sig_size..expected_sig_size + expected_key_size];
+
+        let signature = Signature::from_bytes(signature_bytes.to_vec(), SecurityLevel::Level3)
+            .map_err(|e| BondError::CryptographicError {
+                reason: e.to_string(),
+            })?;
+
+        let public_key = PublicKey::from_bytes(public_key_bytes.to_vec(), SecurityLevel::Level3)
+            .map_err(|e| BondError::CryptographicError {
+                reason: e.to_string(),
+            })?;
+
+        Ok(Some((signature, public_key)))
     }
 }
 

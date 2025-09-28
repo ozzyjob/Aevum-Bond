@@ -1,0 +1,3 @@
+adversarial_infrastructure::NetworkHandler
+adversarial_infrastructure::NetworkHandler: std::clone::Clone
+std::option::Option<adversarial_infrastructure::NetworkHandler>

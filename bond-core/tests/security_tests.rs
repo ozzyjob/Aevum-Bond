@@ -4,6 +4,7 @@ use std::time::{Duration, Instant};
 /// Comprehensive security validation and vulnerability assessment
 
 #[derive(Debug, Clone)]
+#[allow(dead_code)] // Estrutura de teste de segurança - campos usados em contextos específicos
 struct SecurityTest {
     name: String,
     category: SecurityCategory,
@@ -21,6 +22,7 @@ enum SecurityCategory {
     SecurityMonitoring,
 }
 
+#[allow(dead_code)] // Estruturas de teste de segurança - usadas em contextos específicos
 #[derive(Debug, Clone, PartialEq)]
 enum SecuritySeverity {
     Critical,
@@ -30,6 +32,7 @@ enum SecuritySeverity {
     Info,
 }
 
+#[allow(dead_code)]
 #[derive(Debug, Clone, PartialEq)]
 enum TestStatus {
     Passed,
@@ -38,11 +41,13 @@ enum TestStatus {
     Skipped,
 }
 
+#[allow(dead_code)]
 struct SecurityTestSuite {
     tests: Vec<SecurityTest>,
     vulnerabilities_found: Vec<SecurityVulnerability>,
 }
 
+#[allow(dead_code)]
 #[derive(Debug, Clone)]
 struct SecurityVulnerability {
     id: String,
@@ -52,6 +57,7 @@ struct SecurityVulnerability {
     fixed: bool,
 }
 
+#[allow(dead_code)]
 impl SecurityTestSuite {
     fn new() -> Self {
         Self {

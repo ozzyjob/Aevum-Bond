@@ -1,0 +1,1 @@
+std::result::Result<bond_core::ChainState, bond_core::BondError>

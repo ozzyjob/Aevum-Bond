@@ -127,6 +127,14 @@ impl UtxoId {
             output_index,
         }
     }
+
+    /// Convert UTXO ID to bytes for hashing/signing
+    pub fn to_bytes(&self) -> Vec<u8> {
+        let mut bytes = Vec::new();
+        bytes.extend_from_slice(self.tx_hash.as_bytes());
+        bytes.extend_from_slice(&self.output_index.to_le_bytes());
+        bytes
+    }
 }
 
 impl ProgrammableUtxo {
@@ -268,6 +276,16 @@ impl Script {
     /// Get the script size in bytes
     pub fn size(&self) -> usize {
         self.code.len()
+    }
+
+    /// Get the script data (raw bytes)
+    pub fn data(&self) -> &[u8] {
+        &self.code
+    }
+
+    /// Get mutable access to script data
+    pub fn data_mut(&mut self) -> &mut Vec<u8> {
+        &mut self.code
     }
 }
 
